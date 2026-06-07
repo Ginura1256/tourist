@@ -1,0 +1,6 @@
+{
+  "name": "Dynamic Overtourism Mitigation",
+  "description": "An interactive passenger routing and overtourism mitigation proof-of-concept. Real-time crowding checks, smart rerouting, and clear notifications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
