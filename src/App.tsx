@@ -1,11 +1,20 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
 import { Compass, Leaf, Server, Landmark, ShieldCheck, Sliders, Cpu } from "lucide-react";
-import RouterDashboard from "./components/RouterDashboard";
-import AlternativesWiki from "./components/AlternativesWiki";
-import SimulatorDashboard from "./components/SimulatorDashboard";
-import BehindInnovation from "./components/BehindInnovation";
-import MeetTheTeam from "./components/MeetTheTeam";
+const RouterDashboard = React.lazy(() => import("./components/RouterDashboard"));
+const AlternativesWiki = React.lazy(() => import("./components/AlternativesWiki"));
+const SimulatorDashboard = React.lazy(() => import("./components/SimulatorDashboard"));
+const BehindInnovation = React.lazy(() => import("./components/BehindInnovation"));
+const MeetTheTeam = React.lazy(() => import("./components/MeetTheTeam"));
+
+const PageLoader = () => (
+  <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
+    <div className="w-12 h-12 rounded-full border-4 border-[#00C4B4]/10 border-t-[#00C4B4] animate-spin" />
+    <p className="text-xs font-mono font-bold text-[#0A3D2B] animate-pulse">
+      Loading interface...
+    </p>
+  </div>
+);
 
 // Top Header Component showing active states using React Router
 function NavigationHeader() {
@@ -134,25 +143,27 @@ export default function App() {
 
           {/* Main Container */}
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <Routes>
-              {/* Home Path - Telemetry Dashboard */}
-              <Route path="/" element={<RouterDashboard />} />
+            <React.Suspense fallback={<PageLoader />}>
+              <Routes>
+                {/* Home Path - Telemetry Dashboard */}
+                <Route path="/" element={<RouterDashboard />} />
 
-              {/* Alternatives Guide */}
-              <Route path="/alternatives" element={<AlternativesWiki />} />
+                {/* Alternatives Guide */}
+                <Route path="/alternatives" element={<AlternativesWiki />} />
 
-              {/* Simulator Dashboard */}
-              <Route path="/simulator" element={<SimulatorDashboard />} />
+                {/* Simulator Dashboard */}
+                <Route path="/simulator" element={<SimulatorDashboard />} />
 
-              {/* Behind Innovation */}
-              <Route path="/innovation" element={<BehindInnovation />} />
+                {/* Behind Innovation */}
+                <Route path="/innovation" element={<BehindInnovation />} />
 
-              {/* Meet the Team */}
-              <Route path="/team" element={<MeetTheTeam />} />
+                {/* Meet the Team */}
+                <Route path="/team" element={<MeetTheTeam />} />
 
-              {/* Fallback to Home */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+                {/* Fallback to Home */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </React.Suspense>
           </main>
         </div>
 

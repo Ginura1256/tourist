@@ -17,7 +17,7 @@ import {
 } from "./src/db";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT || "3000", 10);
 
 // Body parser middleware
 app.use(express.json());
