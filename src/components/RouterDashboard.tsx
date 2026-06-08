@@ -48,7 +48,7 @@ const getDestinationImage = (name: string): string => {
 
 export default function RouterDashboard() {
   const { isMobile } = useDeviceDetect();
-  const [mobileTab, setMobileTab] = useState<"dashboard" | "map">("dashboard");
+  const [mobileTab, setMobileTab] = useState<"dashboard" | "map">("map");
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [selectedDestName, setSelectedDestName] = useState<string>("Sigiriya Rock Fortress");
   const [isRouting, setIsRouting] = useState<boolean>(false);
