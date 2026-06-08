@@ -25,7 +25,7 @@ export default function MeetTheTeam() {
     name: "Nimnadi",
     role: "Product Visionary & Research Lead",
     focus: "Global Telemetry Systems & Framework Design",
-    bio: "Discovered and analyzed global telemetry systems, competitive gaps, and laid the conceptual framework for CrowdWhisper's overtourism mitigation loop.",
+    bio: "Discovered and analyzed global telemetry systems, competitive gaps, and laid the conceptual framework for Crowd Whisper's overtourism mitigation loop.",
     avatarLetter: "N",
     avatarColor: "from-[#00C4B4] to-[#0A3D2B]",
     icon: <Award className="w-5 h-5 text-[#00C4B4]" />
@@ -85,7 +85,7 @@ export default function MeetTheTeam() {
           Meet the Innovation Team
         </h2>
         <p className="text-base text-slate-350 leading-relaxed font-medium">
-          The engineering minds and product strategists behind CrowdWhisper's sustainable telemetry routing engine.
+          The engineering minds and product strategists behind Crowd Whisper's sustainable telemetry routing engine.
         </p>
       </div>
 

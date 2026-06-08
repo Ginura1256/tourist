@@ -1,17 +1,17 @@
 <div align="center">
-  <img src="assets/aboutme.png" alt="CrowdWhisper Banner" width="100%" />
+  <img src="assets/aboutme.png" alt="Crowd Whisper Banner" width="100%" />
 </div>
 
-# **CrowdWhisper**
+# **Crowd Whisper**
 ### **Dynamic Physical Space Load Balancing System for Heritage Site Conservation**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-brightgreen?style=for-the-black&logo=render)](https://tourist-55rr.onrender.com/)
 [![Repository](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-black&logo=github)](https://github.com/Ginura1256/tourist.git)
 [![Stack](https://img.shields.io/badge/Stack-MERN-orange?style=for-the-black)](https://mongodb.com)
 
-CrowdWhisper is an automated, real-time spatial load-balancing platform designed to mitigate localized overtourism at high-density cultural and ecological heritage sites (e.g., Sigiriya, Temple of the Tooth, Galle Fort). 
+Crowd Whisper is an automated, real-time spatial load-balancing platform designed to mitigate localized overtourism at high-density cultural and ecological heritage sites (e.g., Sigiriya, Temple of the Tooth, Galle Fort). 
 
-Unlike traditional travel applications that rely on historical data to enforce *time-shifting* (altering a user's calendar), CrowdWhisper operates as an active, in-transit network interceptor executing *space-shifting*—autonomously rerouting incoming traveler traffic to under-utilized nearby attractions when an infrastructure asset's carrying capacity is breached.
+Unlike traditional travel applications that rely on historical data to enforce *time-shifting* (altering a user's calendar), Crowd Whisper operates as an active, in-transit network interceptor executing *space-shifting*—autonomously rerouting incoming traveler traffic to under-utilized nearby attractions when an infrastructure asset's carrying capacity is breached.
 
 ---
 

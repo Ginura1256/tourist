@@ -434,7 +434,7 @@ export default function BehindInnovation() {
             <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
               <div className="space-y-4">
                 <p className="text-slate-650 text-sm leading-relaxed">
-                  Real-time cellular mobile subscriber footprint licensing is prohibitively expensive for sustainable startups. CrowdWhisper bypassed these telemetry licensing fees entirely by engineering a tripartite value exchange.
+                  Real-time cellular mobile subscriber footprint licensing is prohibitively expensive for sustainable startups. Crowd Whisper bypassed these telemetry licensing fees entirely by engineering a tripartite value exchange.
                 </p>
                 <p className="text-slate-650 text-sm leading-relaxed">
                   Instead of paying cash, we trade our high-value <strong className="font-bold text-[#0A3D2B]">Predictive Intent Data</strong>—which anticipates where tourist waves will arrive 45 minutes in advance—to public ministries and telecom networks.
