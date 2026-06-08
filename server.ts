@@ -1,6 +1,12 @@
 import express from "express";
 import path from "path";
 import axios from "axios";
+import dotenv from "dotenv";
+
+// Load local environment variables
+dotenv.config({ path: ".env.local" });
+dotenv.config();
+
 import { createServer as createViteServer } from "vite";
 import { 
   connectDatabase, 
