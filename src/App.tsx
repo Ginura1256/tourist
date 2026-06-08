@@ -1,41 +1,44 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
-import { Compass, Leaf, Server, Landmark, ShieldCheck } from "lucide-react";
+import { Compass, Leaf, Server, Landmark, ShieldCheck, Sliders, Cpu } from "lucide-react";
 import RouterDashboard from "./components/RouterDashboard";
 import AlternativesWiki from "./components/AlternativesWiki";
+import SimulatorDashboard from "./components/SimulatorDashboard";
+import BehindInnovation from "./components/BehindInnovation";
+import MeetTheTeam from "./components/MeetTheTeam";
 
 // Top Header Component showing active states using React Router
 function NavigationHeader() {
   const location = useLocation();
 
   return (
-    <header className="border-b border-green-100 bg-white sticky top-0 z-40 shadow-xs">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-250/50 bg-white/80 backdrop-blur-md transition-all duration-350">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           
           {/* Brand Logo & Name */}
-          <Link to="/" className="flex items-center gap-2.5">
-            <div className="p-2 bg-green-600 text-white rounded-xl shadow-sm">
-              <Compass className="w-5 h-5 text-green-50 animate-spin-slow" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="p-2.5 bg-forest-green text-white rounded-2xl shadow-md group-hover:scale-105 transition-transform duration-200">
+              <Compass className="w-5.5 h-5.5 text-white animate-spin-slow" />
             </div>
             <div>
-              <h1 className="text-sm font-bold tracking-tight text-slate-800 leading-none uppercase">
+              <h1 className="text-base font-display font-black tracking-tight text-dark-slate leading-none">
                 EcoDiverter
               </h1>
-              <span className="text-[9px] font-mono font-bold tracking-widest text-green-600 uppercase mt-0.5 block">
-                Overtourism Mitigation Router
+              <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-600 uppercase mt-1 block">
+                Sustainable Sri Lanka
               </span>
             </div>
           </Link>
 
           {/* Navigation Links */}
-          <nav className="flex items-center gap-3">
+          <nav className="flex items-center gap-2 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/40">
             <Link
               to="/"
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all duration-150 border ${
+              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 border ${
                 location.pathname === "/"
-                  ? "bg-green-50 border-green-200 text-green-700 shadow-xs"
-                  : "bg-transparent border-transparent text-slate-600 hover:bg-green-50/50 hover:text-green-700"
+                  ? "bg-white border-slate-200/50 text-forest-green shadow-xs"
+                  : "bg-transparent border-transparent text-slate-500 hover:text-slate-900"
               }`}
             >
               Live Crowds & Routing
@@ -43,21 +46,45 @@ function NavigationHeader() {
             
             <Link
               to="/alternatives"
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all duration-150 flex items-center gap-1.5 border ${
+              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 flex items-center gap-1.5 border ${
                 location.pathname === "/alternatives"
-                  ? "bg-green-50 border-green-200 text-green-700 shadow-xs"
-                  : "bg-transparent border-transparent text-slate-600 hover:bg-green-50/50 hover:text-green-700"
+                  ? "bg-white border-slate-200/50 text-forest-green shadow-xs"
+                  : "bg-transparent border-transparent text-slate-500 hover:text-slate-900"
               }`}
             >
-              <Leaf className="w-3.5 h-3.5 text-green-600" />
+              <Leaf className="w-3.5 h-3.5 text-emerald-600" />
               Alternative Places
+            </Link>
+
+            <Link
+              to="/simulator"
+              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 flex items-center gap-1.5 border ${
+                location.pathname === "/simulator"
+                  ? "bg-white border-slate-200/50 text-forest-green shadow-xs"
+                  : "bg-transparent border-transparent text-slate-500 hover:text-slate-900"
+              }`}
+            >
+              <Sliders className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
+              Simulator Sandbox
+            </Link>
+
+            <Link
+              to="/innovation"
+              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 flex items-center gap-1.5 border ${
+                location.pathname === "/innovation"
+                  ? "bg-white border-slate-200/50 text-forest-green shadow-xs"
+                  : "bg-transparent border-transparent text-slate-500 hover:text-slate-900"
+              }`}
+            >
+              <Cpu className="w-3.5 h-3.5 text-emerald-600" />
+              Behind Innovation
             </Link>
           </nav>
 
           {/* Human-Centered Health Indicator */}
           <div className="hidden md:flex items-center gap-3">
-            <span className="flex items-center gap-1.5 text-[10px] font-mono font-bold bg-green-50 border border-green-200 text-green-700 py-1.5 px-3 rounded-full">
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span>
+            <span className="flex items-center gap-2 text-[10px] font-mono font-bold bg-emerald-50 border border-emerald-250/60 text-emerald-700 py-2 px-4 rounded-full shadow-sm">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
               ROUTER STANDBY
             </span>
           </div>
@@ -71,15 +98,26 @@ function NavigationHeader() {
 // Subtitle footer containing details & attribution
 function UnifiedAppFooter() {
   return (
-    <footer className="border-t border-green-150 bg-white/85 mt-16 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-xs font-mono">
-        <div className="flex justify-between items-center flex-wrap gap-4">
-          <span className="text-slate-400">&copy; {new Date().getFullYear()} EcoDiverter</span>
-          <div className="flex justify-center items-center gap-2">
-            <Landmark className="w-4 h-4 text-slate-400" />
-            <span>EcoDiverter Overtourism Router Proof-of-Concept</span>
+    <footer className="border-t border-slate-200 bg-white/90 mt-20 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-slate-500 text-xs font-mono">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-lg">
+              <Leaf className="w-4 h-4 text-emerald-700" />
+            </div>
+            <span className="font-bold text-dark-slate">EcoDiverter Platform</span>
           </div>
-          <span className="text-slate-400">Sri Lanka Travel Preservation</span>
+          
+          <div className="flex justify-center items-center gap-2 text-center">
+            <Landmark className="w-4 h-4 text-slate-400" />
+            <span>Overtourism Mitigation & Heritage Conservation Initiative</span>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <span className="text-slate-400">&copy; {new Date().getFullYear()} EcoDiverter</span>
+            <span className="text-slate-400">|</span>
+            <span className="text-slate-400">Sri Lanka</span>
+          </div>
         </div>
       </div>
     </footer>
@@ -102,6 +140,15 @@ export default function App() {
 
               {/* Alternatives Guide */}
               <Route path="/alternatives" element={<AlternativesWiki />} />
+
+              {/* Simulator Dashboard */}
+              <Route path="/simulator" element={<SimulatorDashboard />} />
+
+              {/* Behind Innovation */}
+              <Route path="/innovation" element={<BehindInnovation />} />
+
+              {/* Meet the Team */}
+              <Route path="/team" element={<MeetTheTeam />} />
 
               {/* Fallback to Home */}
               <Route path="*" element={<Navigate to="/" replace />} />
