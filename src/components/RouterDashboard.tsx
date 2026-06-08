@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { Destination, RouteStatus } from "../types";
 import RouteMap from "./RouteMap";
+import { useDeviceDetect } from "../hooks/useDeviceDetect";
 
 import sigiriyaImg from "@/assets/Sigiriya-Main.jpg";
 import templeImg from "@/assets/tample of tooth.jpg";
@@ -46,6 +47,8 @@ const getDestinationImage = (name: string): string => {
 
 
 export default function RouterDashboard() {
+  const { isMobile } = useDeviceDetect();
+  const [mobileTab, setMobileTab] = useState<"dashboard" | "map">("dashboard");
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [selectedDestName, setSelectedDestName] = useState<string>("Sigiriya Rock Fortress");
   const [isRouting, setIsRouting] = useState<boolean>(false);
@@ -457,10 +460,36 @@ export default function RouterDashboard() {
       )}
 
       {/* 3. APP INTERACTION BLOCK */}
+      {isMobile && (
+        <div className="flex bg-slate-105 p-1 rounded-2xl border border-slate-200 text-xs font-mono font-bold w-full max-w-md mx-auto sticky top-[80px] z-30 shadow-sm backdrop-blur-md bg-white/95 mb-4">
+          <button
+            onClick={() => setMobileTab("dashboard")}
+            className={`flex-1 py-3 rounded-xl transition-all duration-200 cursor-pointer ${
+              mobileTab === "dashboard" 
+                ? "bg-[#0A3D2B] text-white shadow-sm font-black" 
+                : "text-slate-500 hover:text-slate-900"
+            }`}
+          >
+            🏛️ LANDMARKS
+          </button>
+          <button
+            onClick={() => setMobileTab("map")}
+            className={`flex-1 py-3 rounded-xl transition-all duration-200 cursor-pointer ${
+              mobileTab === "map" 
+                ? "bg-[#0A3D2B] text-white shadow-sm font-black" 
+                : "text-slate-500 hover:text-slate-900"
+            }`}
+          >
+            🗺️ LIVE GPS MAP
+          </button>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* LEFT COLUMN: DESTINATION CARDS & AI ENGINE */}
-        <div className="lg:col-span-8 space-y-10">
+        {(!isMobile || mobileTab === "dashboard") && (
+          <div className="lg:col-span-8 space-y-10 w-full">
           
           {/* A. EXPLORE DESTINATIONS SECTION */}
           <div id="destinations-section" className="space-y-6">
@@ -569,10 +598,12 @@ export default function RouterDashboard() {
           </div>
 
 
-        </div>
+          </div>
+        )}
 
         {/* RIGHT COLUMN: CONTROLS, TELEMETRY MAP, LIVE CROWD DIALS */}
-        <div className="lg:col-span-4 space-y-10">
+        {(!isMobile || mobileTab === "map") && (
+          <div className="lg:col-span-4 space-y-10 w-full">
           
 
 
@@ -785,10 +816,11 @@ export default function RouterDashboard() {
             </div>
           </div>
         </div>
+        )}
       </div>
 
       {/* 4. SIDE-BY-SIDE SUSTAINABLE COMPARISON SECTION */}
-      {activeDest && (
+      {(!isMobile || mobileTab === "dashboard") && activeDest && (
         <section className="bg-white border border-slate-200/80 rounded-[32px] p-6 lg:p-8 shadow-md space-y-6">
           <div>
             <span className="text-xs font-mono font-bold text-forest-green tracking-wider uppercase">Sustainable comparison</span>
@@ -876,7 +908,8 @@ export default function RouterDashboard() {
       )}
 
       {/* 5. DIAGNOSTIC CONTROL & HUD PANEL */}
-      <section className="bg-white border border-slate-200/80 rounded-[32px] p-6 shadow-md space-y-6">
+      {(!isMobile || mobileTab === "map") && (
+        <section className="bg-white border border-slate-200/80 rounded-[32px] p-6 shadow-md space-y-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-100 pb-4 gap-4">
           <div className="flex items-center gap-2">
             <Clock className="w-5 h-5 text-forest-green animate-pulse" />
@@ -997,6 +1030,7 @@ export default function RouterDashboard() {
           </div>
         )}
       </section>
+      )}
       
       {/* Premium Fullscreen Overlay Modal for Heritage Site details & AI Features */}
       {showAIModal && activeDest && (

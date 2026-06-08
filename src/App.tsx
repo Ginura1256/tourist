@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
-import { Compass, Leaf, Server, Landmark, ShieldCheck, Sliders, Cpu } from "lucide-react";
+import { Compass, Leaf, Server, Landmark, ShieldCheck, Sliders, Cpu, Menu, X, ArrowRight } from "lucide-react";
 const RouterDashboard = React.lazy(() => import("./components/RouterDashboard"));
 const AlternativesWiki = React.lazy(() => import("./components/AlternativesWiki"));
 const SimulatorDashboard = React.lazy(() => import("./components/SimulatorDashboard"));
@@ -19,6 +19,7 @@ const PageLoader = () => (
 // Top Header Component showing active states using React Router
 function NavigationHeader() {
   const location = useLocation();
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-250/50 bg-white/80 backdrop-blur-md transition-all duration-350">
@@ -26,7 +27,7 @@ function NavigationHeader() {
         <div className="flex h-20 items-center justify-between">
           
           {/* Brand Logo & Name */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
             <div className="p-2.5 bg-forest-green text-white rounded-2xl shadow-md group-hover:scale-105 transition-transform duration-200">
               <Compass className="w-5.5 h-5.5 text-white animate-spin-slow" />
             </div>
@@ -40,8 +41,8 @@ function NavigationHeader() {
             </div>
           </Link>
 
-          {/* Navigation Links */}
-          <nav className="flex items-center gap-2 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/40">
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-2 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/40">
             <Link
               to="/"
               className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 border ${
@@ -90,16 +91,92 @@ function NavigationHeader() {
             </Link>
           </nav>
 
-          {/* Human-Centered Health Indicator */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Desktop Status Indicator */}
+          <div className="hidden lg:flex items-center gap-3">
             <span className="flex items-center gap-2 text-[10px] font-mono font-bold bg-emerald-50 border border-emerald-250/60 text-emerald-700 py-2 px-4 rounded-full shadow-sm">
               <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
               ROUTER STANDBY
             </span>
           </div>
+
+          {/* Mobile Menu Toggle Button */}
+          <div className="flex lg:hidden items-center gap-3">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2.5 text-slate-650 hover:text-slate-900 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/60 shadow-sm transition cursor-pointer"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
           
         </div>
       </div>
+
+      {/* Mobile Menu Dropdown Panel */}
+      {isOpen && (
+        <div className="lg:hidden border-t border-slate-200/60 bg-white/95 backdrop-blur-md animate-fade-in shadow-lg absolute left-0 right-0 py-4 px-6 space-y-3 z-50">
+          <Link
+            to="/"
+            onClick={() => setIsOpen(false)}
+            className={`flex items-center justify-between p-3.5 rounded-2xl text-sm font-mono font-bold transition border ${
+              location.pathname === "/"
+                ? "bg-[#0A3D2B]/5 border-emerald-500/20 text-[#0A3D2B]"
+                : "bg-slate-50/50 border-slate-100 text-slate-600 hover:bg-slate-50"
+            }`}
+          >
+            <span>Live Crowds & Routing</span>
+            <Compass className="w-4.5 h-4.5 text-slate-400" />
+          </Link>
+
+          <Link
+            to="/alternatives"
+            onClick={() => setIsOpen(false)}
+            className={`flex items-center justify-between p-3.5 rounded-2xl text-sm font-mono font-bold transition border ${
+              location.pathname === "/alternatives"
+                ? "bg-[#0A3D2B]/5 border-emerald-500/20 text-[#0A3D2B]"
+                : "bg-slate-50/50 border-slate-100 text-slate-600 hover:bg-slate-50"
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <Leaf className="w-4 h-4 text-emerald-600" />
+              Alternative Places
+            </span>
+            <ArrowRight className="w-4 h-4 text-slate-400" />
+          </Link>
+
+          <Link
+            to="/simulator"
+            onClick={() => setIsOpen(false)}
+            className={`flex items-center justify-between p-3.5 rounded-2xl text-sm font-mono font-bold transition border ${
+              location.pathname === "/simulator"
+                ? "bg-[#0A3D2B]/5 border-emerald-500/20 text-[#0A3D2B]"
+                : "bg-slate-50/50 border-slate-100 text-slate-600 hover:bg-slate-50"
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <Sliders className="w-4 h-4 text-emerald-600" />
+              Simulator Sandbox
+            </span>
+            <ArrowRight className="w-4 h-4 text-slate-400" />
+          </Link>
+
+          <Link
+            to="/innovation"
+            onClick={() => setIsOpen(false)}
+            className={`flex items-center justify-between p-3.5 rounded-2xl text-sm font-mono font-bold transition border ${
+              location.pathname === "/innovation"
+                ? "bg-[#0A3D2B]/5 border-emerald-500/20 text-[#0A3D2B]"
+                : "bg-slate-50/50 border-slate-100 text-slate-600 hover:bg-slate-50"
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <Cpu className="w-4 h-4 text-emerald-600" />
+              Behind Innovation
+            </span>
+            <ArrowRight className="w-4 h-4 text-slate-400" />
+          </Link>
+        </div>
+      )}
     </header>
   );
 }
