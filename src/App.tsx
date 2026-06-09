@@ -33,7 +33,7 @@ function NavigationHeader() {
             </div>
             <div>
               <h1 className="text-base font-display font-black tracking-tight text-dark-slate leading-none">
-                EcoDiverter
+                Crowd Whisper
               </h1>
               <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-600 uppercase mt-1 block">
                 Sustainable Sri Lanka
@@ -191,7 +191,7 @@ function UnifiedAppFooter() {
             <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-lg">
               <Leaf className="w-4 h-4 text-emerald-700" />
             </div>
-            <span className="font-bold text-dark-slate">EcoDiverter Platform</span>
+            <span className="font-bold text-dark-slate">Crowd Whisper Platform</span>
           </div>
           
           <div className="flex justify-center items-center gap-2 text-center">
@@ -200,7 +200,7 @@ function UnifiedAppFooter() {
           </div>
           
           <div className="flex items-center gap-4">
-            <span className="text-slate-400">&copy; {new Date().getFullYear()} EcoDiverter</span>
+            <span className="text-slate-400">&copy; {new Date().getFullYear()} Crowd Whisper</span>
             <span className="text-slate-400">|</span>
             <span className="text-slate-400">Sri Lanka</span>
           </div>

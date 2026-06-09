@@ -443,7 +443,7 @@ export default function AlternativesWiki() {
         </div>
         <div className="space-y-2">
           <h4 className="text-base font-display font-bold text-forest-green flex items-center gap-2">
-            EcoDiverter Sustainable Footprint Core Goals
+            Crowd Whisper Sustainable Footprint Core Goals
           </h4>
           <p className="text-xs lg:text-sm leading-relaxed text-slate-600">
             The Dynamic Overtourism Mitigation Router constantly evaluates tourist density levels at vulnerable UNESCO world heritage places. High crowd quotients (over 75%) automatically route inbound ticket requests to pre-approved alternative micro-communities. This preserves standard tourist experiences while dynamically spreading the physical load.

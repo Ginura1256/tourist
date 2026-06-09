@@ -62,7 +62,7 @@ export default function BehindInnovation() {
               Protecting Sigiriya Through <span className="text-[#00C4B4]">Intelligent Tourism Flow</span>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-slate-350 max-w-2xl leading-relaxed font-medium">
-              EcoDiverter is an enterprise-grade crowd routing engine. By dynamically shifting high-volume tourist surges, we actively protect ancient Sri Lankan heritage biospheres.
+              Crowd Whisper is an enterprise-grade crowd routing engine. By dynamically shifting high-volume tourist surges, we actively protect ancient Sri Lankan heritage biospheres.
             </p>
           </div>
 
@@ -106,7 +106,7 @@ export default function BehindInnovation() {
                   Sigiriya Rock Fortress is a delicate UNESCO archaeological site under constant threat. Every year, millions of concentrated tourist steps fatigue its ancient brickwork, erode spiral staircases, compact delicate soils, and cause high vehicle emissions in the biological buffer zone.
                 </p>
                 <p className="font-semibold text-[#0A3D2B] bg-[#E8D5B8]/20 border-l-4 border-[#0A3D2B] p-4 rounded-r-xl italic">
-                  "Traditional tourist guides and maps act purely like weather forecasts. They report that a destination is congested but leave travelers stranded in lines. EcoDiverter acts as an active, real-time diversion engine."
+                  "Traditional tourist guides and maps act purely like weather forecasts. They report that a destination is congested but leave travelers stranded in lines. Crowd Whisper acts as an active, real-time diversion engine."
                 </p>
               </div>
 
@@ -121,7 +121,7 @@ export default function BehindInnovation() {
 
                 <div className="p-3 bg-emerald-50/50 border border-emerald-100 rounded-xl space-y-1">
                   <span className="text-emerald-700 font-bold flex items-center gap-1.5 uppercase tracking-wider text-[10px]">
-                    <CheckCircle className="w-4 h-4 shrink-0" /> ECO DIVERTER ACTIVE ROUTING
+                    <CheckCircle className="w-4 h-4 shrink-0" /> CROWD WHISPER ACTIVE ROUTING
                   </span>
                   <p className="text-slate-500 font-normal leading-normal">Mitigates density by redirecting ticket booking streams 45 minutes before congestion peak hits.</p>
                 </div>
@@ -448,7 +448,7 @@ export default function BehindInnovation() {
                 <ul className="space-y-1.5 font-semibold text-slate-700 list-disc list-inside">
                   <li>Government: Gains zero-cost site structural preservation.</li>
                   <li>Telcos: Gain traffic-shaping maps for network cell allocation.</li>
-                  <li>EcoDiverter: Gains free, commercial-grade live crowd counts.</li>
+                  <li>Crowd Whisper: Gains free, commercial-grade live crowd counts.</li>
                 </ul>
               </div>
             </div>

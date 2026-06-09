@@ -464,7 +464,7 @@ export default function RouterDashboard() {
               Preserving Sri Lanka's Heritage
             </span>
             <h1 className="text-4xl lg:text-6xl font-display font-black tracking-tight leading-tight">
-              EcoDiverter
+              Crowd Whisper
             </h1>
             <p className="text-lg lg:text-xl text-emerald-100/90 font-semibold font-display">
               Smart Sustainable Tourism Routing for Sri Lanka
