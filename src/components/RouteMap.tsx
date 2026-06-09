@@ -29,6 +29,12 @@ export default function RouteMap({
   const getShortName = (fullName: string) => {
     const n = fullName.toLowerCase();
     if (n.includes("sigiriya")) return "Sigiriya";
+    if (n.includes("dambulla") || n.includes("cave")) return "Cave Temple";
+    if (n.includes("ibbankatuwa")) return "Ibbankatuwa";
+    if (n.includes("peradeniya") || n.includes("botanic")) return "Botanic Gardens";
+    if (n.includes("gannoruwa")) return "Agro Tech Park";
+    if (n.includes("edison")) return "Edison Bungalow";
+    if (n.includes("idalgashinna")) return "Idalgashinna Node";
     if (n.includes("tooth") || n.includes("temple of")) return "Temple of Tooth";
     if (n.includes("galle")) return "Galle Fort";
     if (n.includes("pidurangala")) return "Pidurangala";
@@ -46,6 +52,27 @@ export default function RouteMap({
         departure: [7.8731, 80.6514] as [number, number],
         primary: [7.9570, 80.7601] as [number, number],
         alternative: [7.9659, 80.7628] as [number, number],
+      };
+    } else if (name.includes("dambulla") || name.includes("cave")) {
+      return {
+        departureName: "Dambulla Junction",
+        departure: [7.8731, 80.6514] as [number, number],
+        primary: [7.8608, 80.6517] as [number, number],
+        alternative: [7.8529, 80.6152] as [number, number],
+      };
+    } else if (name.includes("peradeniya") || name.includes("botanic")) {
+      return {
+        departureName: "Peradeniya Junction",
+        departure: [7.2682, 80.5925] as [number, number],
+        primary: [7.2716, 80.5975] as [number, number],
+        alternative: [7.2828, 80.5947] as [number, number],
+      };
+    } else if (name.includes("edison") || name.includes("bungalow")) {
+      return {
+        departureName: "Haputale Junction",
+        departure: [6.7865, 80.9230] as [number, number],
+        primary: [6.7801, 80.8931] as [number, number],
+        alternative: [6.7852, 80.8876] as [number, number],
       };
     } else if (name.includes("tooth") || name.includes("temple")) {
       return {
@@ -314,7 +341,7 @@ export default function RouteMap({
           </span>
         </div>
         <div className="text-slate-400 font-mono text-[10px]">
-          GPS Latency: 12ms | Active Nodes: 3
+          GPS Latency: 12ms | Active Nodes: 6
         </div>
       </div>
     </div>

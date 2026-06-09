@@ -54,6 +54,36 @@ const defaultDestinations: Destination[] = [
     category: "Colonial History",
     image: "https://images.unsplash.com/photo-1561053720-76cd73ff22c3?auto=format&fit=crop&w=800&q=80",
     alternativeDesc: "A beautiful, serene white stupa built by Japanese Buddhist monks on Rumassala hill, offering panoramic bay vistas and a quiet spiritual environment."
+  },
+  {
+    name: "Dambulla Cave Temple",
+    isCrowded: false,
+    crowdLevel: 55,
+    alternativeDestination: "Ibbankatuwa Megalithic Burial Site",
+    description: "The iconic Golden Temple and Cave Temple complex, featuring five caves filled with ancient Buddhist murals and 153 statues. Highly prone to indoor humidity and crowding.",
+    category: "Sacred Heritage",
+    image: "https://images.unsplash.com/photo-1608958416733-149d59ec3c3c?auto=format&fit=crop&w=800&q=80",
+    alternativeDesc: "An ancient burial ground dating back to the Megalithic prehistoric era of Sri Lanka, offering a quiet, uncrowded archaeological walk through history."
+  },
+  {
+    name: "Royal Botanic Gardens, Peradeniya",
+    isCrowded: false,
+    crowdLevel: 60,
+    alternativeDestination: "Gannoruwa Agro Technology Park",
+    description: "The largest and most renowned botanical garden in Sri Lanka, boasting over 4,000 species of plants and ancient giant trees. Very crowded during weekends and school holidays.",
+    category: "Botanical Haven",
+    image: "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=800&q=80",
+    alternativeDesc: "An educational demonstration park showcasing modern and traditional farming, hydroponics, and herbal gardens in a tranquil setting."
+  },
+  {
+    name: "Edison Bungalow",
+    isCrowded: false,
+    crowdLevel: 45,
+    alternativeDestination: "Idalgashinna Colonial Railway Node",
+    description: "A gorgeous, historic stone country house located in Haputale, surrounded by manicured English gardens, tea estates, and misty pine forests. Prone to weekend tourist congestion.",
+    category: "Colonial Sanctuary",
+    image: "https://images.unsplash.com/photo-1546548970-71785318a17b?auto=format&fit=crop&w=800&q=80",
+    alternativeDesc: "A remote and breathtaking mountain railway station famous for its 14 tunnels and misty pine-forest backdrop, offering a peaceful, crowd-free trekking route."
   }
 ];
 

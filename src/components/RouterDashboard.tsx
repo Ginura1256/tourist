@@ -33,10 +33,22 @@ import galleImg from "@/assets/galle dutch.jpg";
 import pidurangalaImg from "@/assets/pidurangala.jpg";
 import museumImg from "@/assets/museum.jpg";
 import peaceTempleImg from "@/assets/Japanese Peace.jpg";
+import dambullaImg from "@/assets/dambulla.jpg";
+import ibbankatuwaImg from "@/assets/ibbankatuwa.jpg";
+import peradeniyaImg from "@/assets/peradeniya.jpg";
+import gannoruwaImg from "@/assets/gannoruwa.jpg";
+import edisonImg from "@/assets/edison.jpg";
+import idalgashinnaImg from "@/assets/idalgashinna.jpg";
 
 const getDestinationImage = (name: string): string => {
   const n = name.toLowerCase();
   if (n.includes("sigiriya")) return sigiriyaImg;
+  if (n.includes("dambulla") || n.includes("cave")) return dambullaImg;
+  if (n.includes("ibbankatuwa") || n.includes("burial")) return ibbankatuwaImg;
+  if (n.includes("peradeniya") || n.includes("botanic")) return peradeniyaImg;
+  if (n.includes("gannoruwa") || n.includes("agro")) return gannoruwaImg;
+  if (n.includes("edison")) return edisonImg;
+  if (n.includes("idalgashinna") || n.includes("railway")) return idalgashinnaImg;
   if (n.includes("tooth") || n.includes("temple")) return templeImg;
   if (n.includes("galle") || n.includes("fort")) return galleImg;
   if (n.includes("pidurangala")) return pidurangalaImg;
@@ -88,6 +100,21 @@ export default function RouterDashboard() {
       url: galleImg,
       title: "Galle Dutch Fort",
       tagline: "Living Colonial Maritime History"
+    },
+    {
+      url: dambullaImg,
+      title: "Dambulla Cave Temple",
+      tagline: "Spiritual Golden Cave Sanctuary"
+    },
+    {
+      url: peradeniyaImg,
+      title: "Royal Botanic Gardens, Peradeniya",
+      tagline: "Vibrant Exotic Canopy & Floral Haven"
+    },
+    {
+      url: edisonImg,
+      title: "Edison Bungalow",
+      tagline: "Colonial stone house in mist-clad mountains"
     },
     {
       url: pidurangalaImg,
@@ -293,12 +320,18 @@ export default function RouterDashboard() {
   const getRating = (name: string) => {
     if (name.includes("Sigiriya")) return { score: "4.9", count: "4,210 reviews" };
     if (name.includes("Tooth")) return { score: "4.8", count: "3,150 reviews" };
+    if (name.includes("Dambulla")) return { score: "4.7", count: "2,980 reviews" };
+    if (name.includes("Peradeniya") || name.includes("Botanic")) return { score: "4.8", count: "3,870 reviews" };
+    if (name.includes("Edison") || name.includes("Bungalow")) return { score: "4.6", count: "1,240 reviews" };
     return { score: "4.7", count: "2,840 reviews" };
   };
 
   const getEcoScore = (name: string) => {
     if (name.includes("Sigiriya")) return "8.4";
     if (name.includes("Tooth")) return "8.6";
+    if (name.includes("Dambulla")) return "8.9";
+    if (name.includes("Peradeniya") || name.includes("Botanic")) return "8.8";
+    if (name.includes("Edison") || name.includes("Bungalow")) return "8.5";
     return "8.1";
   };
 
@@ -338,6 +371,36 @@ export default function RouterDashboard() {
         sustainability: "+14% visitor mass distribution across museum grounds",
         timeSaved: isOver ? "1 hour saved in main chamber gate" : "15 mins saved",
         traffic: "Saves 8% local pedestrian lane blockages"
+      };
+    } else if (selectedDestName.includes("Dambulla")) {
+      return {
+        text: isOver
+          ? "Dambulla Caves are currently experiencing high humidity and crowd density. Diverting to Ibbankatuwa Megalithic Burial Site is advised for an uncrowded open-air historical walk."
+          : "Dambulla Caves are open with normal visitor flow. However, indoor microclimate degrades quickly under high density. Consider scheduling your visit early.",
+        reason: "Pre-arranged tour groups are entering Caves 1 & 2.",
+        sustainability: "Reduces CO2 and moisture buildup inside fragile cave chambers by 20%",
+        timeSaved: isOver ? "1.5 hours saved in cave entry queues" : "15 mins saved",
+        traffic: "Saves 10% on local junction emission peaks"
+      };
+    } else if (selectedDestName.includes("Peradeniya") || selectedDestName.includes("Botanic")) {
+      return {
+        text: isOver
+          ? "Peradeniya Botanical Gardens are highly congested today, leading to heavy foot pressure on the roots of ancient trees. Diverting to Gannoruwa Agro Technology Park offers a peaceful, educational walk through innovative farming."
+          : "Peradeniya Gardens are clear. However, weekend crowds can be dense. Consider taking a detour to the tranquil Gannoruwa Agro Park to see hydroponics and herbal models.",
+        reason: "Peak weekend visitor traffic is compacting the root zones of the giant Javan fig tree.",
+        sustainability: "Protects ancient root systems and local soil structure from compaction",
+        timeSaved: isOver ? "1 hour saved in main gate ticket queues" : "15 mins saved",
+        traffic: "Avoids Kandy-Colombo highway bottleneck peaks"
+      };
+    } else if (selectedDestName.includes("Edison") || selectedDestName.includes("Bungalow")) {
+      return {
+        text: isOver
+          ? "Edison Bungalow grounds are experiencing high visitor capacity. Diverting to Idalgashinna Colonial Railway Node is advised for a peaceful mountain trek with breathtaking railway tunnel vistas."
+          : "Edison Bungalow has normal visitor flows. However, afternoon surges can cause minor parking blockages. Consider taking a scenic train route to Idalgashinna station.",
+        reason: "Tour groups and weekend retreats are visiting the gardens and chapel complex.",
+        sustainability: "Alleviates foot traffic load on the historic gardens and local sanctuary buffer zone",
+        timeSaved: isOver ? "45 mins saved in driveway parking queues" : "10 mins saved",
+        traffic: "Reduces 15% vehicle emissions along the narrow Haputale access roads"
       };
     } else {
       return {

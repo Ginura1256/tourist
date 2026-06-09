@@ -20,6 +20,9 @@ import {
 import pidurangalaImg from "@/assets/pidurangala.jpg";
 import japanesePeaceImg from "@/assets/Japanese Peace.jpg";
 import museumImg from "@/assets/museum.jpg";
+import ibbankatuwaImg from "@/assets/ibbankatuwa.jpg";
+import gannoruwaImg from "@/assets/gannoruwa.jpg";
+import idalgashinnaImg from "@/assets/idalgashinna.jpg";
 
 interface AlternativePlace {
   name: string;
@@ -138,6 +141,93 @@ export default function AlternativesWiki() {
         monumentStress: "Reduces peak sunset foot-traffic load on the fragile Galle Fort ramparts, preserving historical stonemasonry.",
         carbonOffset: "Diverts traffic away from Galle city center, helping reduce congestion index by 15% in Galle bay.",
         communityBenefit: "Drives tourism revenue to small shops, fruit stands, and local tuk-tuk drivers operating in the Rumassala nature reserve."
+      }
+    },
+    {
+      name: "Ibbankatuwa Megalithic Burial Site",
+      primaryTarget: "Dambulla Cave Temple",
+      category: "Culture & History",
+      environmentValue: "Open-air archaeological site, 95% fewer footprints, protects fragile cave murals.",
+      description: "An ancient prehistoric burial site dating back to 750 BC to 400 BC. It features well-preserved cist graves made of massive granite slabs, where clay urns with ashes, beads, and iron tools were unearthed.",
+      howToGetThere: "Take a 10-minute tuk-tuk ride southwest from Dambulla Town along Kurunegala road, then turn left at the signpost.",
+      benefit: "Visiting this open-air site reduces carbon dioxide and moisture buildup inside Dambulla's enclosed caves, preserving centuries-old frescoes.",
+      image: ibbankatuwaImg,
+      ecoScore: "9.9",
+      rating: 4.8,
+      reviewsCount: 420,
+      history: "First discovered in 1970, this prehistoric site covers more than 10 hectares. It provides evidence of a highly organized early Sri Lankan civilization with trade links reaching as far as India and Persia.",
+      bestTimeToVisit: "8:00 AM - 10:30 AM or 4:00 PM - 5:30 PM (Avoids midday direct sun)",
+      entryFee: "LKR 500 (Approx. $1.50 USD) - vs. Dambulla Cave Temple ($10 USD)",
+      duration: "1 hour",
+      activityLevel: "Easy (Flat walking pathways between stone tomb clusters)",
+      dressCode: "Casual. No religious clothing constraints apply, but comfortable walking shoes, hats, and sunscreen are highly recommended.",
+      communityImpact: {
+        homestays: 30,
+        localTransport: 20,
+        footsteps: 600
+      },
+      details: {
+        monumentStress: "Diverts up to 8,000 monthly visitors away from the enclosed cave chambers, preventing high temperature and humidity spikes.",
+        carbonOffset: "Eases vehicular emissions at the crowded Golden Temple entrance, improving Dambulla's air quality index.",
+        communityBenefit: "Brings essential tourism income to the rural pottery makers and farmers of the local Ibbankatuwa community."
+      }
+    },
+    {
+      name: "Gannoruwa Agro Technology Park",
+      primaryTarget: "Royal Botanic Gardens, Peradeniya",
+      category: "Nature & Peaks",
+      environmentValue: "Interactive agricultural ecosystems, hydroponics, 90% fewer visitor footprints.",
+      description: "A comprehensive agricultural demonstration park located just across the Mahaweli River from Peradeniya. It features organic farms, plant nurseries, an insect museum, and models for sustainable household agriculture.",
+      howToGetThere: "Take a 5-minute drive north from the Peradeniya main entrance across the Gannoruwa Bridge.",
+      benefit: "Saves Peradeniya's century-old tree roots and lawn ecosystems from soil compaction caused by heavy tourist congestion.",
+      image: gannoruwaImg,
+      ecoScore: "9.7",
+      rating: 4.7,
+      reviewsCount: 310,
+      history: "Established by the Sri Lanka Department of Agriculture, this park acts as a live educational and research hub to demonstrate modern green technology and traditional farming methods to school children and tourists.",
+      bestTimeToVisit: "8:30 AM - 11:30 AM or 3:00 PM - 5:00 PM (Ideal temperature for outdoor walking tours)",
+      entryFee: "LKR 200 (Approx. $0.60 USD) - vs. Peradeniya Gardens ($10 USD)",
+      duration: "1.5 hours",
+      activityLevel: "Easy to Moderate (Flat walking paths between crop plots and nurseries)",
+      dressCode: "Casual. No religious clothing constraints, but sunscreen, hats, and comfortable footwear are recommended.",
+      communityImpact: {
+        homestays: 25,
+        localTransport: 20,
+        footsteps: 500
+      },
+      details: {
+        monumentStress: "Reduces root compaction and branch stress on Peradeniya's ancient giant trees by redistributing weekend family tour surges.",
+        carbonOffset: "Promotes foot-based farm trails, lowering heavy tour-bus idling emissions along the main Kandy highway corridor.",
+        communityBenefit: "Directly funds regional agro-technology conservation projects and drives traffic to the local organic farmers' market."
+      }
+    },
+    {
+      name: "Idalgashinna Colonial Railway Node",
+      primaryTarget: "Edison Bungalow",
+      category: "Nature & Peaks",
+      environmentValue: "Pristine mountain ecosystems, 95% fewer footprints, nil noise pollution.",
+      description: "A highly scenic, remote railway station on the Main Line in Sri Lanka, situated on a narrow ridge 1,615 meters above sea level. Famous for its frequent mist, 14 railway tunnels, and panoramic mountain drops on both sides.",
+      howToGetThere: "Take a scenic train ride from Haputale Station to Idalgashinna Station, or hire a 4WD vehicle for a rugged mountain road drive.",
+      benefit: "Diverts foot pressure and vehicle traffic away from Edison Bungalow's historic manicured estate, protecting the surrounding forest sanctuary buffer zone.",
+      image: idalgashinnaImg,
+      ecoScore: "9.9",
+      rating: 4.9,
+      reviewsCount: 520,
+      history: "Built in 1893 during the British colonial expansion to transport tea, the station remains a marvel of engineering. When the mist clears, it offers a view that stretches all the way to the southern coast of Sri Lanka.",
+      bestTimeToVisit: "7:00 AM - 10:30 AM (Best chance of clear skies before the afternoon mist rolls in)",
+      entryFee: "Free (Train ticket from Haputale is approx. LKR 80 / $0.25 USD)",
+      duration: "2 hours",
+      activityLevel: "Moderate (Walking along the railway track or climbing hillside trails)",
+      dressCode: "Casual. Layers are highly recommended since temperature drops rapidly with the mist and wind.",
+      communityImpact: {
+        homestays: 40,
+        localTransport: 30,
+        footsteps: 800
+      },
+      details: {
+        monumentStress: "Protects Edison Bungalow's delicate gardens and heritage stone structure from excessive weekend tour groups.",
+        carbonOffset: "Promotes train-based eco-travel, bypassing vehicle emissions on steep, narrow mountain curves.",
+        communityBenefit: "Brings essential income to the small Idalgashinna hamlet, including local tea shops, guide services, and rural homestays."
       }
     }
   ];
