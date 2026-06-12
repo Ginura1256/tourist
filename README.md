@@ -45,6 +45,17 @@ To achieve commercial feasibility and validate the architectural data pipeline, 
 
 ---
 
+## 🔒 Administrator Portal & Simulator Sandbox
+
+To protect manual telemetry overrides and database seeding controls from public access, Phase 1 features a secure Admin Gateway:
+- **Route:** `/admin/login` (or `/admin/dashboard` once authenticated).
+- **Default Credentials:**
+  - **Username:** `admin`
+  - **Password:** `admin123`
+- **Protected Actions:** The manual crowd slider override (`/api/set-crowd`) and database seed reset (`/api/reset`) now require a valid admin session bearer token.
+
+---
+
 ## 💻 Local Installation & Setup
 
 ### Prerequisites

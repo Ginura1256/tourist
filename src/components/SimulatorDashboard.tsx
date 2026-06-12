@@ -36,9 +36,12 @@ export default function SimulatorDashboard() {
       );
 
       // Post to backend
+      const token = localStorage.getItem("admin_token");
       await axios.post("/api/set-crowd", {
         name,
         crowdLevel: level
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
       });
     } catch (err: any) {
       console.error("Failed to post crowd override update: ", err.message);
@@ -49,7 +52,10 @@ export default function SimulatorDashboard() {
   const handleRestoreDefaults = async () => {
     setIsResetting(true);
     try {
-      const res = await axios.post("/api/reset");
+      const token = localStorage.getItem("admin_token");
+      const res = await axios.post("/api/reset", {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       if (res.data && res.data.list) {
         setDestinations(res.data.list);
       } else {

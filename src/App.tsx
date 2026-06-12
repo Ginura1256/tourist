@@ -6,6 +6,8 @@ const AlternativesWiki = React.lazy(() => import("./components/AlternativesWiki"
 const SimulatorDashboard = React.lazy(() => import("./components/SimulatorDashboard"));
 const BehindInnovation = React.lazy(() => import("./components/BehindInnovation"));
 const MeetTheTeam = React.lazy(() => import("./components/MeetTheTeam"));
+const AdminLogin = React.lazy(() => import("./components/AdminLogin"));
+const AdminDashboard = React.lazy(() => import("./components/AdminDashboard"));
 
 const PageLoader = () => (
   <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
@@ -20,6 +22,15 @@ const PageLoader = () => (
 function NavigationHeader() {
   const location = useLocation();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = React.useState(!!localStorage.getItem("admin_token"));
+
+  React.useEffect(() => {
+    const handleLoginChange = () => {
+      setIsAdminLoggedIn(!!localStorage.getItem("admin_token"));
+    };
+    window.addEventListener("admin_login_change", handleLoginChange);
+    return () => window.removeEventListener("admin_login_change", handleLoginChange);
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-250/50 bg-white/80 backdrop-blur-md transition-all duration-350">
@@ -67,18 +78,6 @@ function NavigationHeader() {
             </Link>
 
             <Link
-              to="/simulator"
-              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 flex items-center gap-1.5 border ${
-                location.pathname === "/simulator"
-                  ? "bg-white border-slate-200/50 text-forest-green shadow-xs"
-                  : "bg-transparent border-transparent text-slate-500 hover:text-slate-900"
-              }`}
-            >
-              <Sliders className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
-              Simulator Sandbox
-            </Link>
-
-            <Link
               to="/innovation"
               className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 flex items-center gap-1.5 border ${
                 location.pathname === "/innovation"
@@ -89,6 +88,34 @@ function NavigationHeader() {
               <Cpu className="w-3.5 h-3.5 text-emerald-600" />
               Behind Innovation
             </Link>
+
+            <span className="w-[1px] h-5 bg-slate-300/60 mx-1.5" />
+
+            {isAdminLoggedIn ? (
+              <Link
+                to="/admin/dashboard"
+                className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 flex items-center gap-1.5 border ${
+                  location.pathname.startsWith("/admin")
+                    ? "bg-white border-slate-200/50 text-forest-green shadow-xs"
+                    : "bg-transparent border-transparent text-slate-500 hover:text-slate-900"
+                }`}
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
+                Admin Dashboard
+              </Link>
+            ) : (
+              <Link
+                to="/admin/login"
+                className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 flex items-center gap-1.5 border ${
+                  location.pathname.startsWith("/admin")
+                    ? "bg-white border-slate-200/50 text-forest-green shadow-xs"
+                    : "bg-transparent border-transparent text-slate-500 hover:text-slate-900"
+                }`}
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
+                Admin Login
+              </Link>
+            )}
           </nav>
 
           {/* Desktop Status Indicator */}
@@ -144,21 +171,39 @@ function NavigationHeader() {
             <ArrowRight className="w-4 h-4 text-slate-400" />
           </Link>
 
-          <Link
-            to="/simulator"
-            onClick={() => setIsOpen(false)}
-            className={`flex items-center justify-between p-3.5 rounded-2xl text-sm font-mono font-bold transition border ${
-              location.pathname === "/simulator"
-                ? "bg-[#0A3D2B]/5 border-emerald-500/20 text-[#0A3D2B]"
-                : "bg-slate-50/50 border-slate-100 text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Sliders className="w-4 h-4 text-emerald-600" />
-              Simulator Sandbox
-            </span>
-            <ArrowRight className="w-4 h-4 text-slate-400" />
-          </Link>
+          {isAdminLoggedIn ? (
+            <Link
+              to="/admin/dashboard"
+              onClick={() => setIsOpen(false)}
+              className={`flex items-center justify-between p-3.5 rounded-2xl text-sm font-mono font-bold transition border ${
+                location.pathname.startsWith("/admin")
+                  ? "bg-[#0A3D2B]/5 border-emerald-500/20 text-[#0A3D2B]"
+                  : "bg-slate-50/50 border-slate-100 text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                Admin Dashboard
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-400" />
+            </Link>
+          ) : (
+            <Link
+              to="/admin/login"
+              onClick={() => setIsOpen(false)}
+              className={`flex items-center justify-between p-3.5 rounded-2xl text-sm font-mono font-bold transition border ${
+                location.pathname.startsWith("/admin")
+                  ? "bg-[#0A3D2B]/5 border-emerald-500/20 text-[#0A3D2B]"
+                  : "bg-slate-50/50 border-slate-100 text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-slate-400" />
+                Admin Login
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-400" />
+            </Link>
+          )}
 
           <Link
             to="/innovation"
@@ -228,8 +273,14 @@ export default function App() {
                 {/* Alternatives Guide */}
                 <Route path="/alternatives" element={<AlternativesWiki />} />
 
-                {/* Simulator Dashboard */}
-                <Route path="/simulator" element={<SimulatorDashboard />} />
+                {/* Admin login */}
+                <Route path="/admin/login" element={<AdminLogin />} />
+
+                {/* Admin Dashboard */}
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+                {/* Redirect legacy simulator route to admin dashboard */}
+                <Route path="/simulator" element={<Navigate to="/admin/dashboard" replace />} />
 
                 {/* Behind Innovation */}
                 <Route path="/innovation" element={<BehindInnovation />} />

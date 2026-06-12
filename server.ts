@@ -13,11 +13,36 @@ import {
   getDestinations, 
   getDestinationByName, 
   updateDestinationCrowd, 
-  initSeed 
+  initSeed,
+  verifyAdminCredentials,
+  createSession,
+  validateSession,
+  destroySession
 } from "./src/db";
 
 const app = express();
 const PORT = parseInt(process.env.PORT || "3000", 10);
+
+// Middleware to protect admin routes
+async function requireAdmin(req: express.Request, res: express.Response, next: express.NextFunction) {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ error: "Unauthorized: Missing or invalid token format." });
+    }
+
+    const token = authHeader.split(" ")[1];
+    const username = await validateSession(token);
+    if (!username) {
+      return res.status(401).json({ error: "Unauthorized: Session expired or invalid." });
+    }
+
+    (req as any).adminUser = username;
+    next();
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 // Body parser middleware
 app.use(express.json());
@@ -75,9 +100,50 @@ app.get("/api/check-crowd/:destinationName", async (req, res) => {
   }
 });
 
+// --- ADMIN AUTHENTICATION API ENDPOINTS ---
+
+// Admin Login
+app.post("/api/admin/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ error: "Username and password are required." });
+    }
+
+    const isValid = await verifyAdminCredentials(username, password);
+    if (!isValid) {
+      return res.status(401).json({ error: "Invalid username or password." });
+    }
+
+    const token = await createSession(username);
+    res.json({ token, username });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Admin Logout
+app.post("/api/admin/logout", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      const token = authHeader.split(" ")[1];
+      await destroySession(token);
+    }
+    res.json({ success: true, message: "Logged out successfully." });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Verify session status
+app.get("/api/admin/me", requireAdmin, async (req, res) => {
+  res.json({ username: (req as any).adminUser });
+});
+
 // 3. Absolute manual control override endpoint
 // Lets the user set an exact crowd density in the UI (e.g. 90% or 40%) to verify transitions
-app.post("/api/set-crowd", async (req, res) => {
+app.post("/api/set-crowd", requireAdmin, async (req, res) => {
   try {
     const { name, crowdLevel } = req.body;
     if (name === undefined || crowdLevel === undefined) {
@@ -199,7 +265,7 @@ app.post("/api/check-congestion", async (req, res) => {
 });
 
 // 4. Restart database or values back to seeded clean state
-app.post("/api/reset", async (req, res) => {
+app.post("/api/reset", requireAdmin, async (req, res) => {
   try {
     await initSeed();
     const list = await getDestinations();

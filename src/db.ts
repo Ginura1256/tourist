@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import crypto from 'crypto';
 import { Destination } from './types';
 
 // Define Mongoose Schema
@@ -22,6 +23,50 @@ try {
 }
 
 export { DestinationModel };
+
+// Define Admin Schema
+const AdminSchema = new Schema({
+  username: { type: String, required: true, unique: true },
+  passwordHash: { type: String, required: true },
+  salt: { type: String, required: true }
+});
+
+let AdminModel: any;
+try {
+  AdminModel = mongoose.model('Admin');
+} catch {
+  AdminModel = mongoose.model('Admin', AdminSchema);
+}
+
+// Define Session Schema
+const SessionSchema = new Schema({
+  token: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
+  expiresAt: { type: Date, required: true }
+});
+
+let SessionModel: any;
+try {
+  SessionModel = mongoose.model('Session');
+} catch {
+  SessionModel = mongoose.model('Session', SessionSchema);
+}
+
+// In-memory collections acting as fallback
+interface MemoryAdmin {
+  username: string;
+  passwordHash: string;
+  salt: string;
+}
+
+interface MemorySession {
+  token: string;
+  username: string;
+  expiresAt: number;
+}
+
+let memoryAdmins: MemoryAdmin[] = [];
+let memorySessions: MemorySession[] = [];
 
 // Pre-seeded fallback database for instant preview functionality
 const defaultDestinations: Destination[] = [
@@ -93,6 +138,18 @@ let memoryCollection: Destination[] = [...defaultDestinations];
 // Database state connection check
 let isDatabaseConnected = false;
 
+// Password hashing and verification helper functions
+function hashPassword(password: string): { salt: string; hash: string } {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+  return { salt, hash };
+}
+
+function verifyPassword(password: string, salt: string, hash: string): boolean {
+  const verifyHash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+  return verifyHash === hash;
+}
+
 export async function connectDatabase() {
   const uri = process.env.MONGODB_URI;
   if (!uri) {
@@ -114,6 +171,18 @@ export async function connectDatabase() {
     if (count === 0) {
       await DestinationModel.insertMany(defaultDestinations);
       console.log("🌱 Database seeded with default high-density tourist locations.");
+    }
+
+    // Seed default admin if empty
+    const adminCount = await AdminModel.countDocuments();
+    if (adminCount === 0) {
+      const { salt, hash } = hashPassword("admin123");
+      await AdminModel.create({
+        username: "admin",
+        passwordHash: hash,
+        salt
+      });
+      console.log("🌱 Default admin account created: admin / admin123");
     }
   } catch (error) {
     console.warn("❌ MongoDB connection failed. Falling back to in-memory persistence.", error);
@@ -177,12 +246,117 @@ export async function updateDestinationCrowd(name: string, level: number): Promi
 export async function initSeed() {
   // Resets the states back to default configuration
   memoryCollection = JSON.parse(JSON.stringify(defaultDestinations));
+  const { salt, hash } = hashPassword("admin123");
+  memoryAdmins = [{ username: "admin", salt, passwordHash: hash }];
+  memorySessions = [];
+
   if (isDatabaseConnected && mongoose.connection.readyState === 1) {
     try {
       await DestinationModel.deleteMany({});
       await DestinationModel.insertMany(defaultDestinations);
+
+      await AdminModel.deleteMany({});
+      await AdminModel.create({
+        username: "admin",
+        passwordHash: hash,
+        salt
+      });
+      await SessionModel.deleteMany({});
     } catch {
       // Inline safety check
     }
+  }
+}
+
+export async function verifyAdminCredentials(username: string, password: string): Promise<boolean> {
+  if (isDatabaseConnected && mongoose.connection.readyState === 1) {
+    try {
+      const admin = await AdminModel.findOne({ username }).lean();
+      if (admin) {
+        return verifyPassword(password, admin.salt, admin.passwordHash);
+      }
+    } catch (err) {
+      console.error("Database admin verification error:", err);
+    }
+  }
+
+  // Fallback memory check
+  const mAdmin = memoryAdmins.find(a => a.username === username);
+  if (mAdmin) {
+    return verifyPassword(password, mAdmin.salt, mAdmin.passwordHash);
+  }
+
+  // If no admins are initialized in memory yet, let's seed the default one
+  if (memoryAdmins.length === 0 && username === "admin") {
+    const { salt, hash } = hashPassword("admin123");
+    memoryAdmins.push({ username: "admin", salt, passwordHash: hash });
+    return verifyPassword(password, salt, hash);
+  }
+
+  return false;
+}
+
+export async function createSession(username: string): Promise<string> {
+  const token = crypto.randomBytes(32).toString('hex');
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+  if (isDatabaseConnected && mongoose.connection.readyState === 1) {
+    try {
+      await SessionModel.create({ token, username, expiresAt });
+      return token;
+    } catch (err) {
+      console.error("Database session creation error:", err);
+    }
+  }
+
+  // Fallback memory storage
+  memorySessions.push({ token, username, expiresAt: expiresAt.getTime() });
+  return token;
+}
+
+export async function validateSession(token: string): Promise<string | null> {
+  if (!token) return null;
+
+  if (isDatabaseConnected && mongoose.connection.readyState === 1) {
+    try {
+      const session = await SessionModel.findOne({ token }).lean();
+      if (session) {
+        if (new Date(session.expiresAt).getTime() > Date.now()) {
+          return session.username;
+        } else {
+          await SessionModel.deleteOne({ token });
+        }
+      }
+    } catch (err) {
+      console.error("Database session validation error:", err);
+    }
+  }
+
+  // Fallback memory verification
+  const idx = memorySessions.findIndex(s => s.token === token);
+  if (idx !== -1) {
+    const session = memorySessions[idx];
+    if (session.expiresAt > Date.now()) {
+      return session.username;
+    } else {
+      memorySessions.splice(idx, 1);
+    }
+  }
+
+  return null;
+}
+
+export async function destroySession(token: string): Promise<void> {
+  if (isDatabaseConnected && mongoose.connection.readyState === 1) {
+    try {
+      await SessionModel.deleteOne({ token });
+    } catch (err) {
+      console.error("Database session destruction error:", err);
+    }
+  }
+
+  const idx = memorySessions.findIndex(s => s.token === token);
+  if (idx !== -1) {
+    memorySessions.splice(idx, 1);
   }
 }
